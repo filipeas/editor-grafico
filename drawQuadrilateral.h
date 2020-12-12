@@ -1,3 +1,4 @@
+// Funcao que implementa desenho de quadrilatero (atividade c))
 void drawQuadrilateral(std::vector<double> pointsArray)
 {
 	for(int i = 0; i < pointsArray.size(); i = i + 2)

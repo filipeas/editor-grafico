@@ -1,3 +1,4 @@
+// Funcao que implementa bresenham (atividade a) e b))
 void bresenham(double x1, double y1, double x2, double y2)
 {
 	double dx, dy, d, aux;

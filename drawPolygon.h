@@ -1,3 +1,6 @@
+// Funcao que implementa desenho de poligonos (atividade e))
+// Para desenhar eh necessario utilizar um metodo de desenho de reta. 
+// Foi utilizado o bresenham.
 void drawPolygon(std::vector<double> pointsArray)
 {
 	// enquanto o array de pontos tiver as coordenadas do quarto clique
@@ -12,10 +15,19 @@ void drawPolygon(std::vector<double> pointsArray)
 	}
 }
 
+// Funcao que realiza processo de rasterizacao do poligono
 void rasterizePolybon(double x1, double y1, double x2, double y2)
 {
-	double tamanho, Dx, Dy, x, y, ymin, xmin;
-	int i = 1;
+	double x;
+	double Dx;
+	double xmin;
+	double y;
+	double Dy;
+	double ymin;
+	double tamanho;
+
+	int i = 1; // contador de tamanho
+
 	if (abs(x2 - x1) >= abs(y2 - y1))
 	{
 		tamanho = abs(x2 - x1);
@@ -28,8 +40,17 @@ void rasterizePolybon(double x1, double y1, double x2, double y2)
 	Dx = (x2 - x1) / tamanho;
 	Dy = (y2 - y1) / tamanho;
 
-	ymin = (y1 < y2) ? y1 : y2;
-	xmin = (x1 < x2) ? x1 : x2;
+	if (y1 < y2){
+		ymin = y1;
+	} else{
+		ymin = y2;
+	}
+
+	if (x1 < x2){
+		xmin = x1;
+	}else{
+		xmin = x2;
+	}
 
 	x = xmin;
 	y = ymin;

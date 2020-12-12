@@ -1,5 +1,5 @@
 // Funcao responsavel por rasterizar (desenhar) circunferencia de raio definido 
-// em variavel padrao
+// em variavel padrao. Atividade (h))
 void rasterizeCircumference(double x1, double y1, double Raio)
 {
 	double x;

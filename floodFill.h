@@ -1,3 +1,4 @@
+// Funcao que implementa floodfill com vizinhanca 4. (atividade i))
 void floodFill(GLint x, GLint y, float* fillColor, float* bc)
 {
 	float color[3];

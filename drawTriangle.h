@@ -1,3 +1,6 @@
+// Funcao que implementa desenho de triangulo (atividade d))
+// Para desenhar eh necessario utilizar um metodo de desenho de reta. 
+// Foi utilizado o bresenham.
 void drawTriangle(std::vector<double> pointsArray)
 {
 	// enquanto o array de pontos tiver as coordenadas do quarto clique
