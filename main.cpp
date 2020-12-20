@@ -366,7 +366,8 @@ void drawPontos()
 // Funcao que realiza translacao de uma figura (atividade f))
 void translationElement(double *x, double *y, double tx, double ty)
 {
-	double matriz[3][3] = {
+	double matriz[3][3] =
+	{
 		{1, 0, 0},
 		{0, 1, 0},
 		{tx, ty, 1}
@@ -392,7 +393,8 @@ void translationElement(double *x, double *y, double tx, double ty)
 // Funcao que realiza translacao de uma escala (atividade f))
 void scaleElement(double *x, double *y, double sx, double sy)
 {
-	double matriz[3][3] = {
+	double matriz[3][3] =
+	{
 		{sx, 0, 0},
 		{0, sy, 0},
 		{0, 0, 1}
@@ -425,7 +427,8 @@ void shearElement(double *x, double *y, double C, double direcao) //direcao 1 - 
 
 	if (direcao == 1)
 	{
-		int matriz[3][3] = {
+		int matriz[3][3] =
+		{
 			{1, 0, 0},
 			{C, 1, 0},
 			{0, 0, 1}
@@ -433,13 +436,14 @@ void shearElement(double *x, double *y, double C, double direcao) //direcao 1 - 
 	}
 	else if(direcao == 2)
 	{
-		int matriz[3][3] = {
+		int matriz[3][3] =
+		{
 			{1, C, 0},
 			{0, 1, 0},
 			{0, 0, 1}
 		};
 	}
-	
+
 	for (i = 0; i < 3; i++)
 	{
 		aux = 0;
@@ -463,7 +467,8 @@ void reflectionElement(double *x, double *y, int direcao) //direcao 1 - eixo x 2
 
 	if (direcao == 1)
 	{
-		double	matriz[3][3] = {
+		double	matriz[3][3] =
+		{
 			{1, 0, 0},
 			{0, -1, 0},
 			{0, 0, 1}
@@ -471,7 +476,8 @@ void reflectionElement(double *x, double *y, int direcao) //direcao 1 - eixo x 2
 	}
 	else if(direcao == 2)
 	{
-		double	matriz[3][3] = {
+		double	matriz[3][3] =
+		{
 			{ -1, 0, 0},
 			{0, 1, 0},
 			{0, 0, 1}
@@ -479,7 +485,8 @@ void reflectionElement(double *x, double *y, int direcao) //direcao 1 - eixo x 2
 	}
 	else if(direcao == 3)
 	{
-		double matriz[3][3] = {
+		double matriz[3][3] =
+		{
 			{ -1, 0, 0},
 			{0, -1, 0},
 			{0, 0, 1}
@@ -507,7 +514,8 @@ void rotarionElement(double *x, double *y, double grau)
 	double cosseno, seno;
 	cosseno = cos( grau * M_PI / 180.0 );
 	seno = sin(grau * M_PI / 180.0);
-	double matriz[3][3] = {
+	double matriz[3][3] =
+	{
 		{cosseno, seno, 0},
 		{ -seno, cosseno, 0},
 		{0, 0, 1}
