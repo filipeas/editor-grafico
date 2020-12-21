@@ -1,27 +1,18 @@
 // VARIAVEIS DE USO GLOBAL
 
-bool click1 = false;
-bool click2 = false;
-bool click3 = false;
-bool click4 = false;
-bool click5 = false;
-
 // poligonos
 bool reta = false;
 bool quadrilatero = false;
 bool triangulo = false;
 bool poligono = false;
 bool circunferencia = false;
+
+// fixando tamanho do raio da circunferencia 
 double raio = 45;
 
 bool aux = false;
 bool floodFill_aux = false;
 
-int cont1 = 4, cont2 = 4;
-
-float cor1 = 0;
-float cor2 = 0;
-float cor3 = 0;
 // cor selecionado pro flood fill
 float floodFillColor[] = {0, 0, 0};
 
@@ -41,11 +32,15 @@ struct ponto
 	ponto * prox;
 };
 
-
 // Lista encadeada de pontos
 // indica o primeiro elemento da lista
 ponto * pontos = NULL;
 
+// definicao de contadores de cliques na tela
+bool click1 = false;
+bool click2 = false;
+bool click3 = false;
+bool click4 = false; 
 
 // Funcao para armazenar um ponto na lista
 // Armazena como uma Pilha (empilha)

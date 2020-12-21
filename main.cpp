@@ -3,9 +3,9 @@
  *
  * Opcoes no teclado
  * 0 - DESENHAR RETA (atividade A e B)
- * 1 - DESENHAR TRIANGULO (atividade d)
- * 2 - DESENHAR QUADRILATERO (atividade c)
- * 3 - RESENHAR POLIGONO (atividade E e H)
+ * 1 - DESENHAR TRIANGULO (atividade D)
+ * 2 - DESENHAR QUADRILATERO (atividade C)
+ * 3 - DESENHAR POLIGONO (atividade E e H)
  * 4 - DESENHAR CIRCUNFERENCIA (atividade G)
  * 5 - MUDAR COR PARA PRETO
  * 6 - MUDAR COR PARA VERMELHO
@@ -13,28 +13,25 @@
  * 8 - MUDAR COR PARA AZUL
  * 9 - ATIVAR FLOOD FILL (atividade I)
  * - - LIMPAR TELA (não funciona...)
- * ESC - FECHA PROGRAMA
+ * ESC - Fechar programa
  *
  * Opcoes no mause:
  * BOTAO ESQUERDO EXECUTA ACAO SELECIONADA
+ * BOTAO DIREITO FINALIZA DESENHO DE POLIGONO (OPCAO 3)
  *
  * Observacoes:
- * 1) Para desenhar eh necessario selecionar a forma desejada, e depois clicar
+ * 1) Para desenhar eh necessario selecionar a forma desejada (0 a 4), e depois clicar
  * na tela com o botao esquerdo para desenha-lo. Caso seja uma reta ou quadrilatero
- *  eh preciso 2 cliques.
+ * eh preciso 2 cliques.
  * Se for um triangulo, 3 cliques. E se for um poligono, eh possivel desenhar a
  * partir de 3 cliques e logo depois clique com o botao direito para fechar
  * o poligono automaticamente.
  * 2) Para colorir uma figura, primeiro selecione uma cor e depois selecione a
- * opcao de flood fill.  Depois basta clicar com o botao esquerdo dentro da
- * figura e ele ira automaticamente preenche-la. Ha bug no preenchimento
- * que acontece quando eh diminuido a largura da linha. Depois de alguns testes
- * foi fixado com tamanho 5, mas ainda pode ocorrer do floodfill encontrar uma
- * brecha na figura e desenhar o fundo da tela. Se isso ocorrer ele ficara em loop
- * desenhando o fundo e nunca vai acabar.
- * Tomar cuidade para usar o flood fill no fundo branco da tela. Se fizer isso
+ * opcao de flood fill (opcao 9).  Depois basta clicar com o botao esquerdo dentro da
+ * figura e ele ira automaticamente preenche-la.
+ * Tomar cuidado para usar o flood fill no fundo branco da tela. Se fizer isso
  * o programa entrará em loop pois ele vai tentar preencher o branco do fundo
- * da tela.
+ * da tela, que supostamente é infinito.
  * 3) Não foi implementado a atividade F. Não consegui usar os pontos selecionados
  * e aplicar as transformacoes apos um desenho ser feito.
  */
@@ -69,8 +66,6 @@ void mouse(int button, int state, int x, int y);
 // Funcao que percorre a lista de pontos desenhando-os na tela
 void drawPontos();
 
-int lineHight = 15, lineMargin = 5, currentHight = 15;
-
 // Funcao Principal do C
 int main(int argc, char** argv)
 {
@@ -82,7 +77,7 @@ int main(int argc, char** argv)
 
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard); // funcao callback do teclado
-	glRasterPos2f(lineMargin, currentHight);
+	glRasterPos2f(5, 15);
 	glutMouseFunc(mouse); // funcao callback do mouse
 
 	glutDisplayFunc(display); //funcao callback de desenho
@@ -94,7 +89,7 @@ int main(int argc, char** argv)
 // Funcao com alguns comandos para a inicializacao do OpenGL;
 void init(void)
 {
-	glClearColor(1.0, 1.0, 1.0, 1.0); //Limpa a tela com a cor branca;
+	glClearColor(1.0, 1.0, 1.0, 1.0); // Limpa a tela com a cor branca;
 }
 
 void reshape(int w, int h)
@@ -110,15 +105,13 @@ void reshape(int w, int h)
 	height = h;
 	glOrtho (0, w, 0, h, -1 , 1);
 
-	// muda para o modo GL_MODELVIEW (nï¿½o pretendemos alterar a projecï¿½ï¿½o
-	// quando estivermos a desenhar na tela)
+	// Muda para o modo GL_MODELVIEW
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	click1 = true; //Para redesenhar os pixels selecionados
+	click1 = true;
 	click2 = true;
 	click3 = true;
 	click4 = true;
-	click5 = true;
 }
 
 // Callback para utilizacao das teclas do teclado
@@ -178,7 +171,6 @@ void mouse(int button, int state, int x, int y)
 				x_2 = x;
 				pointsArray.push_back(height - y);
 				y_2 = height - y;
-				printf("x2y2(%d,%d)\n", x, height - y);
 				glutPostRedisplay();
 			}
 			else if(click1 && click2 && !click3) // quando fizer o segundo clique
@@ -186,7 +178,6 @@ void mouse(int button, int state, int x, int y)
 				click3 = true;
 				pointsArray.push_back(x);
 				pointsArray.push_back(height - y);
-				printf("x3y3(%d,%d)\n", x, height - y);
 				glutPostRedisplay();
 			}
 			else // quando fizer todos os cliques
@@ -196,7 +187,6 @@ void mouse(int button, int state, int x, int y)
 				x_1 = x;
 				pointsArray.push_back(height - y);
 				y_1 = height - y;
-				printf("x1y1(%d,%d)\n", x, height - y);
 				glutPostRedisplay();
 			}
 
@@ -206,9 +196,9 @@ void mouse(int button, int state, int x, int y)
 		if (state == GLUT_DOWN)
 		{
 			// se houver 3 cliques e for maior que 3 permitir desenho (caso poligono)
+			// necessario para preencher o poligo			
 			if(click1 && click2 && click3 && pointsArray.size() > 3 && !click4)
 			{
-				click5 = true;
 				aux = true;
 			}
 			click4 = true;
@@ -224,11 +214,11 @@ void mouse(int button, int state, int x, int y)
 // Funcao usada na funcao callback para desenhar na tela
 void display(void)
 {
-	cor1 = 0, cor2 = 0, cor3 = 0;
+	float cor1 = 0, cor2 = 0, cor3 = 0;
 	// glColor3f (0.0, 0.0, 0.0); // menu preto
 	glClear(GL_COLOR_BUFFER_BIT); // Limpa o Buffer de Cores
 
-	// barra de menu
+	// barra de menu (descontinado pois nao foi possivel inserir uma imagem)
 	// glBegin(GL_QUADS);
 	// glVertex2f(200, 1000);
 	// glVertex2f(0, 1000);
@@ -245,10 +235,12 @@ void display(void)
 	// glVertex2f(2000, 0);
 	// glEnd();
 
+	// necessario por tamanho 5 para forcar o flood fill ficar dentro da figura
 	glPointSize(5);
 
-	if(reta && !quadrilatero && !triangulo && !poligono && !circunferencia)  //bresenham e quadrilatero
+	if(reta && !quadrilatero && !triangulo && !poligono && !circunferencia)
 	{
+		// identificar cliques da reta
 		if(click1 && click2)
 		{
 			bresenham(x_1, y_1, x_2, y_2);
@@ -259,8 +251,9 @@ void display(void)
 			pointsArray.clear();// Limpa o vetor de pontos
 		}
 	}
-	else if(!reta && quadrilatero && !triangulo && !poligono && !circunferencia)  //bresenham e quadrilatero
+	else if(!reta && quadrilatero && !triangulo && !poligono && !circunferencia)
 	{
+		// identifica cliques do poligono
 		if(click1 && click2)
 		{
 			drawQuadrilateral(pointsArray);
@@ -268,7 +261,7 @@ void display(void)
 			click1 = false;
 			click2 = false;
 			click3 = false;
-			pointsArray.clear();//limpa o vetor de pontos
+			pointsArray.clear();//Limpa o vetor de pontos
 		}
 
 	}
@@ -284,72 +277,62 @@ void display(void)
 			click2 = false;
 			click3 = false;
 			click4 = false;
-			click5 = false;
-			pointsArray.clear();//limpa o vetor de pontos
+			pointsArray.clear();//Limpa o vetor de pontos
 
 
 		}
 	}
 	else if(!reta && !quadrilatero && !triangulo && poligono && !circunferencia)
 	{
-		if(click1 && click2 && click3 && click4 && click5)
+		// identifica 3 ou mais cliques para o poligono
+		if(click1 && click2 && click3 && click4)
 		{
 			click1 = false;
 			click2 = false;
 			click3 = false;
 			click4 = false;
-			click5 = false;
-			cont1 = 4;
-			cont2 = 4;
 			drawPolygon(pointsArray);
 			drawPontos();
 			pointsArray.clear();//limpa o vetor de pontos
 
 		}
 
-		if(click1 && click2 && click3 && click4 && !click5)
+		if(click1 && click2 && click3 && click4)
 		{
 			click4 = false;
-		}
-		if(aux) //cria menu novamente apos o desenho de poligono
-		{
-			aux = false;
-			poligono = false;
-			// menuPressionado = false;
 		}
 	}
 	else if(!reta && !quadrilatero && !triangulo && !poligono && circunferencia)
 	{
+		// clique unico para a circunferencia
 		if(click1)
 		{
-			rasterizeCircumference(x_1, y_1, raio); //especificar raio!
+			rasterizeCircumference(x_1, y_1, raio);
 			drawPontos();
 			click1 = false;
 			click2 = false;
-			pointsArray.clear();//limpa o vetor de pontos
+			pointsArray.clear();//Limpa o vetor de pontos
 
 		}
 
 	}
 	else if(floodFill_aux && !reta && !quadrilatero && !triangulo && !poligono && !circunferencia)
 	{
+		// identifica clique para aplicacao do flood fill
 		if(click1)
 		{
+			float floodColor[] = {0, 0, 0};
 
-			float bCol[] = {0, 0, 0}; //cor do pixel clicado no caso clicou dentro da figura entï¿½o ï¿½ branco
-
-			glPointSize(2);//tamanho do ponto de pintura
-			floodFill(x_1, y_1, floodFillColor, bCol);
+			glPointSize(3);
+			floodFill(x_1, y_1, floodFillColor, floodColor);
 			click1 = false;
 			click2 = false;
 
-			pointsArray.clear();//limpa o vetor de pontos
+			pointsArray.clear();//Limpa o vetor de pontos
 
 		}
 	}
-	glutSwapBuffers();// manda o OpenGl renderizar as primitivas
-
-
+	glutSwapBuffers();
 }
 
 //Funcao que desenha os pontos contidos em uma lista de pontos

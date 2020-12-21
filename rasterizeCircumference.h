@@ -1,38 +1,35 @@
-// Funcao responsavel por rasterizar (desenhar) circunferencia de raio definido 
+// Funcao responsavel por rasterizar (desenhar) circunferencia.
+// o raio tem tamanho fixo no structure.h  
 // em variavel padrao. Atividade (h))
-void rasterizeCircumference(double x1, double y1, double Raio)
+void rasterizeCircumference(double x1, double y1, double rcirc)
 {
-	double x;
-	double y;
-	double d;
-	double deltaE;
-	double deltaSE;
+	double x, y, d, de, dse;
 
 	if(x1 != 0 && y1 != 0)
 	{
-		d = 1 - Raio;
-		deltaE = 3;
-		deltaSE = -2 * Raio + 5;
-		x = 0, y = Raio;
+		d = 1 - rcirc;
+		de = 3;
+		dse = -2 * rcirc + 5;
+		x = 0, y = rcirc;
 		
-		pontos = pushPonto(x1, y1 + (int) Raio);
-		pontos = pushPonto(x1, y1 - (int) Raio);
-		pontos = pushPonto(x1 + (int) Raio, y1);
-		pontos = pushPonto(x1 - (int) Raio, y1);
+		pontos = pushPonto(x1, y1 + (int) rcirc);
+		pontos = pushPonto(x1, y1 - (int) rcirc);
+		pontos = pushPonto(x1 + (int) rcirc, y1);
+		pontos = pushPonto(x1 - (int) rcirc, y1);
 
 		while(y > x)
 		{
 			if (d < 0)
 			{
-				d += deltaE;
-				deltaE += 2;
-				deltaSE += 2;
+				d += de;
+				de += 2;
+				dse += 2;
 			}
 			else
 			{
-				d += deltaSE;
-				deltaE += 2;
-				deltaSE += 4;
+				d += dse;
+				de += 2;
+				dse += 4;
 				y--;
 			}
 

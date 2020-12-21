@@ -1,25 +1,20 @@
 // Funcao que implementa bresenham (atividade a) e b))
 void bresenham(double x1, double y1, double x2, double y2)
 {
-	double dx, dy, d, aux;
-	double incE, incNE;
-	double x, y;
-	bool declive = false, simetrico = false;
+	double dx, dy, x, y, d, aux, ince, incne;
+	bool dec = false, simc = false;
 
-	// calculo do delta
-	dx = x2 - x1;
-	dy = y2 - y1;
+	dx = x2 - x1; // realizando calculo do delta x
+	dy = y2 - y1; // realizando calculo do delta y
 
-	// convertendo retas de positivos para negativos
 	if (dx * dy < 0)
 	{
 		y1 = -y1;
 		y2 = -y2;
 		dy = -dy;
-		simetrico = true;
+		simc = true;
 	}
 
-	// ajuste de troca do x por y em declive
 	if(abs(dx) < abs(dy))
 	{
 		aux = y1;
@@ -33,10 +28,9 @@ void bresenham(double x1, double y1, double x2, double y2)
 		aux = dx;
 		dx = dy;
 		dy = aux;
-		declive = true;
+		dec = true;
 	}
 
-	// ajuste para troca de extremos
 	if(x1 > x2)
 	{
 		aux = x1;
@@ -52,37 +46,35 @@ void bresenham(double x1, double y1, double x2, double y2)
 	}
 
 	d = 2 * dy - dx;
-	incE = 2 * dy;
-	incNE = 2 * (dy - dx);
+	ince = 2 * dy;
+	incne = 2 * (dy - dx);
 
 	while(x1 < x2)
 	{
 		x = x1;
 		y = y1;
 
-		if(declive == true)
+		if(dec == true)
 		{
 			aux = x;
 			x = y;
 			y = aux;
 		}
 
-		if(simetrico == true)
+		if(simc == true)
 		{
 			y = -y;
 		}
 
 		if (d <= 0)
-			d += incE;
+			d += ince;
 		else
 		{
-			d += incNE;
+			d += incne;
 			y1++;
 		}
 		
 		x1 += 1;
 		pontos = pushPonto(x, y);
 	}
-
-
 }

@@ -1,6 +1,7 @@
 // Funcao que implementa floodfill com vizinhanca 4. (atividade i))
 void floodFill(GLint x, GLint y, float* fillColor, float* bc)
 {
+	float cor1 = 0, cor2 = 0, cor3 = 0;
 	float color[3];
 	glReadPixels(x, y, 1.0, 1.0, GL_RGB, GL_FLOAT, color);
 	if((color[0] != bc[0] || color[1] != bc[1] || color[2] != bc[2]) && (

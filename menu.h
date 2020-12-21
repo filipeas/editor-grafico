@@ -1,13 +1,13 @@
 // Funcao para marcacao selecionada da cor no flood fill
 void menufloodFillColors(int op)
 {
+	reta = false;
+	quadrilatero = false;
+	triangulo = false;
+	poligono = false;
+	circunferencia = false;
 	switch (op)
 	{
-		reta = false;
-		quadrilatero = false;
-		triangulo = false;
-		poligono = false;
-		circunferencia = false;
 	case 0: // selecao para cor preto
 		floodFillColor[0] = 0, floodFillColor[1] = 0, floodFillColor[2] = 0;
 		break;
